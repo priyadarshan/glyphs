@@ -68,8 +68,6 @@ is equivalent to:
 ```lisp
 (ƒ no-cats
   /"(were|cat)"/ → |"dog"|)
-(no-cats "there were some cats and some dogs")
-"there dog some dogs and some dogs"
 ```
 is equivalent to:
 ```lisp
