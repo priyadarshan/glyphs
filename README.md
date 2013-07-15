@@ -21,7 +21,7 @@ Is equivalent to:
 ```lisp
 (defun factorial (x)
   (cond ((equal x 0) 1)
-	(x (* x (factorial (- x 1))))))
+        (x (* x (factorial (- x 1))))))
 ```
 
 ## Basic map with glyphs lambda macro to compare strings
@@ -34,8 +34,9 @@ Is equivalent to:
 Is equivalent to:
 ```lisp
 (mapcar (lambda (x)
-              (cond ((equal x "cat") (print "Cats rock"))
-                    ((equal x "dog") (print "Dogs do too!")) '("cat" "dog" "mouse"))))
+          (cond ((equal x "cat") (print "Cats rock"))
+                ((equal x "dog") (print "Dogs do too!")) '("cat" "dog" "mouse"))))
+```
 
 # To come...
 
