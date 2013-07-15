@@ -38,15 +38,32 @@ Is equivalent to:
                 ((equal x "dog") (print "Dogs do too!")) '("cat" "dog" "mouse"))))
 ```
 
-# To come...
+## Comparison based on passed in conditionals
 
-I plan to add additional features to the glyph macros so that calls such as:
 ```lisp
 (ƒ double-odds-half-evens
-   oddp → (* x 2)
-   evenp → (/ x 2))
+  (oddp x) → (* x 2)
+  (evenp x) → (/ x 2))
 ```
-will be functional, as well as some sort of shorthand for regex matching/replacing.
+is equivalent to:
+```lisp
+(defun double-odds-half-evens (x)
+  (cond ((oddp x) (* x 2))
+        ((evenp x) (/ x 2))))
+```	
+
+## Fast matching based on regex strings
+```lisp
+(ƒ any-cats?
+  /"cat"/ → (print "yes!"))
+```
+is equivalent to:
+```lisp
+(defun any-cats? (x)
+  (when (cl-ppcre:scan "cat" x)
+    (print "yes!")))
+```    
+
 
 # Currently used glyphs and bindings for them (more to come)
 

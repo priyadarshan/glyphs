@@ -1,6 +1,6 @@
 ;;;; package.lisp
 
 (defpackage #:glyphs
-  (:use #:cl)
+  (:use #:cl #:cl-ppcre)
   (:export ƒ λ))
 
