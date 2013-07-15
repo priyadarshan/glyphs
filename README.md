@@ -7,74 +7,104 @@ BODOL (https://github.com/bodil/BODOL - no affiliation).
 To try it out in your REPL you can use (ql:quickload :glyphs)
 if you have added to your ASDF load path in local projects.
 
-# Examples
+## Examples
 
-## Factorial example with glyphs function macro:
+### Factorial example with glyphs function macro:
 
+glyphs:
 ```lisp
 (ƒ factorial
    0 → 1
    x → (* x (factorial (- x 1))))
 ```
-
-Is equivalent to:
+vs.:
 ```lisp
 (defun factorial (x)
   (cond ((equal x 0) 1)
         (x (* x (factorial (- x 1))))))
 ```
+result:
+```lisp
+(factorial 8)
+40320
+```
 
-## Basic map with glyphs lambda macro to compare strings
+### Map with glyphs lambda macro to compare strings and do a side effect
+glyphs:
 
 ```lisp
 (mapcar (λ "cat" → (print "Cats rock")
            "dog" → (print "Dogs do too!")) '("cat" "dog" "mouse"))
 ```
-
-Is equivalent to:
+vs.:
 ```lisp
 (mapcar (lambda (x)
           (cond ((equal x "cat") (print "Cats rock"))
                 ((equal x "dog") (print "Dogs do too!")) '("cat" "dog" "mouse"))))
 ```
+result:
+```lisp
+"Cats rock"
+"Dogs do too!"
+NIL
+```
 
 ## Comparison based on passed in conditionals
-
+glyphs:
 ```lisp
 (ƒ double-odds-half-evens
   (oddp x) → (* x 2)
   (evenp x) → (/ x 2))
 ```
-is equivalent to:
+vs.:
 ```lisp
 (defun double-odds-half-evens (x)
   (cond ((oddp x) (* x 2))
         ((evenp x) (/ x 2))))
 ```	
+result:
+```lisp
+(double-odds-half-evens 4)
+2
+(double-odds-half-evens 3)
+6
+```
 
 ## Fast matching based on regex strings
+glyphs:
 ```lisp
 (ƒ any-cats?
   /"cat"/ → (print "yes!"))
 ```
-is equivalent to:
+vs.:
 ```lisp
 (defun any-cats? (x)
   (when (cl-ppcre:scan "cat" x)
     (print "yes!")))
 ```    
+result:
+```lisp
+(any-cats? "I see some cats")
+"yes!"
+```
 
 ## Easy regex replaces on matching strings
+glyphs:
 ```lisp
 (ƒ no-cats
   /"(were|cat)"/ → |"dog"|)
 ```
-is equivalent to:
+vs.:
 ```lisp
 (defun no-cats (x)
   (let ((regex "(were|cat)"))
        (when (cl-ppcre:scan regex x)
          (cl-ppcre:regex-replace-all regex x "dog"))))
+```
+result:
+```lisp
+(no-cats "there were dogs and there were cats")
+"there dog dogs and there dog dogs"
 ```
 
 # Currently used glyphs and bindings for them (more to come)
