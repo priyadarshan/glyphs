@@ -64,6 +64,20 @@ is equivalent to:
     (print "yes!")))
 ```    
 
+## Easy regex replaces on matching strings
+```lisp
+(ƒ no-cats
+  /"(were|cat)"/ → |"dog"|)
+(no-cats "there were some cats and some dogs")
+"there dog some dogs and some dogs"
+```
+is equivalent to:
+```lisp
+(defun no-cats (x)
+  (let ((regex "(were|cat)"))
+       (when (cl-ppcre:scan regex x)
+         (cl-ppcre:regex-replace-all regex x "dog"))))
+```
 
 # Currently used glyphs and bindings for them (more to come)
 

@@ -29,13 +29,25 @@
 			      `(equal x ,(nth (- iter 1) rest)))
 			,(nth (+ iter 1) rest)))))))))
 
-(defmacro regex (reg)
+(defmacro gregex (reg)
   "Easily find regex matches in a string"
-  `(cl-ppcre:scan ,(car reg) x))
+  `(progn (defparameter *regex* ,(car reg))
+  (cl-ppcre:scan *regex* x)))
 
 (set-macro-character
  #\/
  (lambda (stream char)
    (declare (ignore char))
    (let* ((reglist (read-delimited-list #\/ stream t)))
-     `(regex ,reglist))))
+     `(gregex ,reglist))))
+
+(defmacro gregex-replace (reg)
+  "Easily run some regex replacements"
+  `(cl-ppcre:regex-replace-all *regex* x ,(car reg)))
+
+(set-macro-character
+ #\|
+ (lambda (stream char)
+   (declare (ignore char))
+   (let* ((replace-list (read-delimited-list #\| stream t)))
+     `(gregex-replace ,replace-list))))
