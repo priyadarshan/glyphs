@@ -11,7 +11,7 @@
        (cond 
 	 ,@(loop for arg in rest
 	      for iter from 0
-	      when (and (symbolp arg) (equal '→ (intern (string arg))))
+	      when (and (symbolp arg) (string= '→ arg))
 	      collect `(,(if (consp (nth (- iter 1) rest))
 			     `,(nth (- iter 1) rest)
 			      `(equal x ,(nth (- iter 1) rest)))
@@ -23,7 +23,7 @@
        (cond 
 	 ,@(loop for arg in rest
 	      for iter from 0
-	      when (and (symbolp arg) (equal '→ (intern (string arg))))
+	      when (and (symbolp arg) (string= '→ arg))
 	      collect `(,(if (consp (nth (- iter 1) rest))
 			     `,(nth (- iter 1) rest)
 			      `(equal x ,(nth (- iter 1) rest)))
