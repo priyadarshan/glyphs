@@ -15,13 +15,13 @@ glyphs:
 ```lisp
 (ƒ factorial
    0 → 1
-   x → (* x (factorial (- x 1))))
+   α → (* α (factorial (1- α))))
 ```
 vs.:
 ```lisp
 (defun factorial (x)
   (cond ((equal x 0) 1)
-        (x (* x (factorial (- x 1))))))
+        (x (* x (factorial (1- x))))))
 ```
 result:
 ```lisp
@@ -53,8 +53,8 @@ NIL
 glyphs:
 ```lisp
 (ƒ double-odds-half-evens
-  (oddp x) → (* x 2)
-  (evenp x) → (/ x 2))
+  (oddp α) → (* x 2)
+  (evenp α) → (/ x 2))
 ```
 vs.:
 ```lisp
@@ -118,6 +118,8 @@ Add to `.emacs'
 (global-set-key (kbd "M-l") (lambda () (interactive) (insert "\u03bb"))) ; λ lambda
 (global-set-key (kbd "M-f") (lambda () (interactive) (insert "\u0192"))) ; ƒ function
 (global-set-key (kbd "M--") (lambda () (interactive) (insert "\u2192"))) ; → right arrow
+(global-set-key (kbd "M-a") (lambda () (interactive) (insert "\u03b1"))) ; α alpha
+(global-set-key (kbd "M-y") (lambda () (interactive) (insert "\u03c8"))) ; ψ psi
 ```
 
 ## Vim bindings
@@ -129,6 +131,8 @@ Add to `.vimrc'
 :inoremap <A-l> <C-v>u3bb<Space>   ; λ lambda 
 :inoremap <A-f> <C-v>u192<Space>   ; ƒ function
 :inoremap <A--> <C-v>u2192<Space>  ; → right arrow
+:inoremap <A-a> <C-v>u03b1<Space>  ; α alpha
+:inoremap <A-y> <C-v>u03c8<Space>  ; ψ psi
 ```
 
 ## Mac OS X keybindings
@@ -140,6 +144,8 @@ Add to `~/Library/KeyBindings/DefaultKeyBinding.dict'
 "~l" = ("insertText:", "\U03BB"); /* alt + l ~> λ lambda */
 "~f" = ("insertText:", "\U0192"); /* alt + f ~> ƒ function */
 "~-" = ("insertText:", "\U2192"); /* alt + - ~> → right arrow */
+"~a" = ("insertText:", "\U03b1"); /* alt + a ~> α alpha */
+"~y" = ("insertText:", "\U03c8"); /* alt + y ~> ψ psi */
 }
 ```
 

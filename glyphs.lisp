@@ -6,33 +6,33 @@
 
 (defmacro ƒ (name &rest rest)
   "Similar to defun, requires using x as the default case"
-  `(defun ,name (&optional glyphs:x)
-     (let ((glyphs:x (or glyphs:x t)))
+  `(defun ,name (&optional glyphs:α)
+     (let ((glyphs:α (or glyphs:α t)))
        (cond 
 	 ,@(loop for arg in rest
 	      for iter from 0
 	      when (and (symbolp arg) (string= '→ arg))
 	      collect `(,(if (consp (nth (1- iter) rest))
 			     `,(nth (1- iter) rest)
-			      `(equal glyphs:x ,(nth (1- iter) rest)))
+			      `(equal glyphs:α ,(nth (1- iter) rest)))
 			,(nth (1+ iter) rest)))))))
 
 (defmacro λ (&rest rest)
   "Similar to lambda, requires using x as the default case"
-  `(lambda (&optional glyphs:x)
+  `(lambda (&optional glyphs:α)
        (cond 
 	 ,@(loop for arg in rest
 	      for iter from 0
 	      when (and (symbolp arg) (string= '→ arg))
 	      collect `(,(if (consp (nth (1- iter) rest))
 			     `,(nth (1- iter) rest)
-			      `(equal glyphs:x ,(nth (1- iter) rest)))
+			      `(equal glyphs:α ,(nth (1- iter) rest)))
 			,(nth (1+ iter) rest))))))
 
 (defmacro gregex (reg)
   "Easily find regex matches in a string"
-  `(progn (defparameter glyphs:*gregex* ,(car reg))
-  (cl-ppcre:scan glyphs:*gregex* glyphs:x)))
+  `(progn (defparameter glyphs:*ψ* ,(car reg))
+  (cl-ppcre:scan glyphs:*ψ* glyphs:α)))
 
 (set-macro-character
  #\/
@@ -43,7 +43,7 @@
 
 (defmacro gregex-replace (reg)
   "Easily run some regex replacements"
-  `(cl-ppcre:regex-replace-all glyphs:*gregex* glyphs:x ,(car reg)))
+  `(cl-ppcre:regex-replace-all glyphs:*ψ* glyphs:α ,(car reg)))
 
 (set-macro-character
  #\|
