@@ -15,7 +15,7 @@
 	      collect `(,(if (consp (nth (- iter 1) rest))
 			     `,(nth (- iter 1) rest)
 			      `(equal x ,(nth (- iter 1) rest)))
-			,(nth (+ iter 1) rest)))))))))
+			,(nth (+ iter 1) rest)))))))
 
 (defmacro λ (&rest rest)
   "Similar to lambda, requires using x as the default case"
@@ -27,7 +27,7 @@
 	      collect `(,(if (consp (nth (- iter 1) rest))
 			     `,(nth (- iter 1) rest)
 			      `(equal x ,(nth (- iter 1) rest)))
-			,(nth (+ iter 1) rest)))))))))
+			,(nth (+ iter 1) rest))))))
 
 (defmacro gregex (reg)
   "Easily find regex matches in a string"
