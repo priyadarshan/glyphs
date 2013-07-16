@@ -21,7 +21,8 @@
   :description "Glyphs to reduce Common Lisp verbosity"
   :author "Matthew Carter <m@ahungry.com>"
   :license "GPLv3"
-  :depends-on (#:cl-ppcre)
+  :depends-on (#:cl-ppcre
+	       #:parenscript)
   :components ((:file "package")
                (:file "glyphs")))
 
