@@ -2,5 +2,5 @@
 
 (defpackage #:glyphs
   (:use #:cl #:cl-ppcre)
-  (:export ƒ λ))
+  (:export ƒ λ x *gregex*))
 
