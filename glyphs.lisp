@@ -34,16 +34,16 @@
 			,(nth (1+ iter) rest)))))))
 (defmacro ƒƒ (name &rest rest)
   "PS - Similar to defun, requires using x as the default case"
-  `(parenscript:ps (defun ,name (&optional glyphs:α)
-     (let ((glyphs:α (or glyphs:α t)))
+  `(parenscript:ps
+     (defun ,name (&optional glyphs:α)
        (cond 
 	 ,@(loop for arg in rest
 	      for iter from 0
 	      when (and (symbolp arg) (string= '→ arg))
 	      collect `(,(if (consp (nth (1- iter) rest))
 			     `,(nth (1- iter) rest)
-			      `(equal glyphs:α ,(nth (1- iter) rest)))
-			,(nth (1+ iter) rest))))))))
+			     `(equal glyphs:α ,(nth (1- iter) rest)))
+			 ,(nth (1+ iter) rest)))))))
 
 (defmacro λ (&rest rest)
   "Similar to lambda, requires using x as the default case"
@@ -59,15 +59,16 @@
 
 (defmacro λλ (&rest rest)
   "PS - Similar to lambda, requires using x as the default case"
-  `(parenscript:ps (lambda (&optional glyphs:α)
+  `(parenscript:ps
+     (lambda (&optional glyphs:α)
        (cond 
 	 ,@(loop for arg in rest
 	      for iter from 0
 	      when (and (symbolp arg) (string= '→ arg))
 	      collect `(,(if (consp (nth (1- iter) rest))
 			     `,(nth (1- iter) rest)
-			      `(equal glyphs:α ,(nth (1- iter) rest)))
-			,(nth (1+ iter) rest)))))))
+			     `(equal glyphs:α ,(nth (1- iter) rest)))
+			 ,(nth (1+ iter) rest)))))))
 
 (defmacro gregex (reg)
   "Easily find regex matches in a string"
