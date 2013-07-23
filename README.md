@@ -74,7 +74,7 @@ result:
 glyphs:
 ```lisp
 (ƒ any-cats?
-  /"cat"/ → (print "yes!"))
+  ~"cat"~ → (print "yes!"))
 ```
 vs.:
 ```lisp
@@ -92,7 +92,7 @@ result:
 glyphs:
 ```lisp
 (ƒ no-cats
-  /"(were|cat)"/ → |"dog"|)
+  ~"(were|cat)"~ → |"dog"|)
 ```
 vs.:
 ```lisp
