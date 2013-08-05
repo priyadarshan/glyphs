@@ -149,6 +149,22 @@ Add to `~/Library/KeyBindings/DefaultKeyBinding.dict'
 }
 ```
 
+## StumpWM keybindings
+```
+(defcommand xdo-lambda () ()
+(run-shell-command "xdotool type λ"))
+(defcommand xdo-fn () ()
+(run-shell-command "xdotool type ƒ"))
+(defcommand xdo-alpha () ()
+(run-shell-command "xdotool type α"))
+(defcommand xdo-arrow () ()
+(run-shell-command "xdotool type →"))
+("s-l" "xdo-lambda")
+("s-f" "xdo-fn")
+("s--" "xdo-arrow")
+("s-a" "xdo-alpha")
+```
+										
 # License
 
 See LICENSE.md
