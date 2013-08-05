@@ -150,19 +150,25 @@ Add to `~/Library/KeyBindings/DefaultKeyBinding.dict'
 ```
 
 ## StumpWM keybindings
-```
+```lisp
+(defmacro defkeys-top (&rest keys)
+  (let ((ks (mapcar #'(lambda (k) (cons 'defkey-top k)) keys)))
+    `(progn ,@ks)))
+
 (defcommand xdo-lambda () ()
-(run-shell-command "xdotool type λ"))
+    (run-shell-command "xdotool type λ"))
 (defcommand xdo-fn () ()
-(run-shell-command "xdotool type ƒ"))
+    (run-shell-command "xdotool type ƒ"))
 (defcommand xdo-alpha () ()
-(run-shell-command "xdotool type α"))
+    (run-shell-command "xdotool type α"))
 (defcommand xdo-arrow () ()
-(run-shell-command "xdotool type →"))
-("s-l" "xdo-lambda")
-("s-f" "xdo-fn")
-("s--" "xdo-arrow")
-("s-a" "xdo-alpha")
+    (run-shell-command "xdotool type →"))
+
+(defkeys-top
+    ("s-l" "xdo-lambda")
+    ("s-f" "xdo-fn")
+    ("s--" "xdo-arrow")
+    ("s-a" "xdo-alpha"))
 ```
 										
 # License
