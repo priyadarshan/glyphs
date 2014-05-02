@@ -19,5 +19,5 @@
 (defpackage #:glyphs
   (:use #:cl #:cl-ppcre #:parenscript #:named-readtables)
   (:export ƒ ƒƒ λ λλ α *ψ*
-           :syntax
-           :in-readtable))
+           #:syntax
+           #:in-readtable))

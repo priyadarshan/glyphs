@@ -20,20 +20,27 @@
 
 ;;; "glyphs" goes here. Hacks and glory await!
 
-(defparameter *ψ* "")
+(eval-when (:compile-toplevel :load-toplevel :execute)
 
-(defun gscan (stream char)
-  (declare (ignore char)) ;; Needed if manually setting end char
-  (let ((replace-list (read-delimited-list #\~ stream t)))
-    `(progn
-       (setf *ψ* ,(car replace-list))
-       (cl-ppcre:scan *ψ* α))))
+  (defparameter *ψ* "")
 
-(defun greplace (stream char)
-  (declare (ignore char))
-  (let ((replace-list (read-delimited-list #\| stream t)))
-    `(progn
-       (cl-ppcre:regex-replace-all *ψ* α ,(car replace-list)))))
+  (defun gscan (stream char)
+    (declare (ignore char)) ;; Needed if manually setting end char
+    (let ((replace-list (read-delimited-list #\~ stream t)))
+      `(progn
+         (setf *ψ* ,(car replace-list))
+         (cl-ppcre:scan *ψ* α))))
+
+  (defun greplace (stream char)
+    (declare (ignore char))
+    (let ((replace-list (read-delimited-list #\| stream t)))
+      `(progn
+         (cl-ppcre:regex-replace-all *ψ* α ,(car replace-list)))))
+
+  (defreadtable glyphs:syntax
+    (:fuze :standard)
+    (:macro-char #\~ #'gscan)
+    (:macro-char #\| #'greplace)))
 
 (defmacro ƒ (name &rest rest)
   "Similar to defun, requires using x as the default case"
@@ -51,6 +58,7 @@
 
 (parenscript:defmacro+ps ƒƒ (name &rest rest)
   "PS - Similar to defun, requires using x as the default case"
+  (in-readtable glyphs:syntax)
   `(defun ,name (&optional glyphs:α)
      (cond
        ,@(loop for arg in rest
@@ -76,6 +84,7 @@
 
 (parenscript:defmacro+ps λλ (&rest rest)
   "PS - Similar to lambda, requires using x as the default case"
+  (in-readtable glyphs:syntax)
   `(lambda (&optional glyphs:α)
      (cond
        ,@(loop for arg in rest
@@ -85,8 +94,3 @@
 			   `,(nth (1- iter) rest)
 			   `(equal glyphs:α ,(nth (1- iter) rest)))
 		       ,(nth (1+ iter) rest))))))
-
-(defreadtable glyphs:syntax
-  (:merge :standard)
-  (:macro-char #\~ #'gscan)
-  (:macro-char #\| #'greplace))
