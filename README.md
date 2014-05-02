@@ -61,7 +61,7 @@ vs.:
 (defun double-odds-half-evens (x)
   (cond ((oddp x) (* x 2))
         ((evenp x) (/ x 2))))
-```	
+```
 result:
 ```lisp
 (double-odds-half-evens 4)
@@ -71,6 +71,13 @@ result:
 ```
 
 ## Fast matching based on regex strings
+
+Make sure to use the readtable that comes with it first:
+```lisp
+(in-readtable glyphs:syntax)
+```
+Or these little readtable shortcuts will not work.
+
 glyphs:
 ```lisp
 (ƒ any-cats?
@@ -81,7 +88,7 @@ vs.:
 (defun any-cats? (x)
   (when (cl-ppcre:scan "cat" x)
     (print "yes!")))
-```    
+```
 result:
 ```lisp
 (any-cats? "I see some cats")
@@ -128,7 +135,7 @@ Add to `.vimrc'
 
 ```vim
 " Keybindings for glyphs
-:inoremap <A-l> <C-v>u3bb<Space>   ; λ lambda 
+:inoremap <A-l> <C-v>u3bb<Space>   ; λ lambda
 :inoremap <A-f> <C-v>u192<Space>   ; ƒ function
 :inoremap <A--> <C-v>u2192<Space>  ; → right arrow
 :inoremap <A-a> <C-v>u03b1<Space>  ; α alpha
@@ -170,7 +177,7 @@ Add to `~/Library/KeyBindings/DefaultKeyBinding.dict'
     ("s--" "xdo-arrow")
     ("s-a" "xdo-alpha"))
 ```
-										
+
 # License
 
 See LICENSE.md

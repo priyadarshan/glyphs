@@ -20,31 +20,28 @@
 
 ;;; "glyphs" goes here. Hacks and glory await!
 
-(eval-when (:compile-toplevel :load-toplevel :execute)
+(defparameter *ψ* "")
 
-  (defparameter *ψ* "")
+(defun gscan (stream char)
+  (declare (ignore char)) ;; Needed if manually setting end char
+  (let ((replace-list (read-delimited-list #\~ stream t)))
+    `(progn
+       (setf *ψ* ,(car replace-list))
+       (cl-ppcre:scan *ψ* α))))
 
-  (defun gscan (stream char)
-    (declare (ignore char)) ;; Needed if manually setting end char
-    (let ((replace-list (read-delimited-list #\~ stream t)))
-      `(progn
-         (setf *ψ* ,(car replace-list))
-         (cl-ppcre:scan *ψ* α))))
+(defun greplace (stream char)
+  (declare (ignore char))
+  (let ((replace-list (read-delimited-list #\| stream t)))
+    `(progn
+       (cl-ppcre:regex-replace-all *ψ* α ,(car replace-list)))))
 
-  (defun greplace (stream char)
-    (declare (ignore char))
-    (let ((replace-list (read-delimited-list #\| stream t)))
-      `(progn
-         (cl-ppcre:regex-replace-all *ψ* α ,(car replace-list)))))
-
-  (defreadtable glyphs:syntax
-    (:fuze :standard)
-    (:macro-char #\~ #'gscan)
-    (:macro-char #\| #'greplace)))
+(defreadtable glyphs:syntax
+  (:fuze :standard)
+  (:macro-char #\~ #'gscan)
+  (:macro-char #\| #'greplace))
 
 (defmacro ƒ (name &rest rest)
   "Similar to defun, requires using x as the default case"
-  (in-readtable glyphs:syntax)
   `(defun ,name (&optional glyphs:α)
      (let ((glyphs:α (or glyphs:α t)))
        (cond
@@ -58,7 +55,6 @@
 
 (parenscript:defmacro+ps ƒƒ (name &rest rest)
   "PS - Similar to defun, requires using x as the default case"
-  (in-readtable glyphs:syntax)
   `(defun ,name (&optional glyphs:α)
      (cond
        ,@(loop for arg in rest
@@ -71,7 +67,6 @@
 
 (defmacro λ (&rest rest)
   "Similar to lambda, requires using x as the default case"
-  (in-readtable glyphs:syntax)
   `(lambda (&optional glyphs:α)
      (cond
        ,@(loop for arg in rest
@@ -84,7 +79,6 @@
 
 (parenscript:defmacro+ps λλ (&rest rest)
   "PS - Similar to lambda, requires using x as the default case"
-  (in-readtable glyphs:syntax)
   `(lambda (&optional glyphs:α)
      (cond
        ,@(loop for arg in rest
